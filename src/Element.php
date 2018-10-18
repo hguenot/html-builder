@@ -225,9 +225,6 @@ class Element extends Node {
 		} else if (0 === func_num_args()) {
 			$txt = '';
 
-			if ($this instanceof Text) {
-				$txt .= $this->text;
-			}
 			foreach ($this->descendants() as $node) {
 				if ($node instanceof Text) {
 					$txt .= $node->text;

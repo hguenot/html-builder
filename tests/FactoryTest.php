@@ -17,6 +17,32 @@ class FactoryTest extends TestCase {
 		$this->assertSame('<!--hallo welt-->', $n->toString());
 	}
 
+	public function testComment2() {
+		$n = new Comment(Html::element('p')->text('Hello world'));
+		$this->assertInstanceOf(Comment::class, $n);
+		$this->assertSame('<!--<p>Hello world</p>-->', $n->toString());
+	}
+
+	public function testComment3() {
+		$n = new Comment(new class {
+			public function __toString() {
+				return 'Hello World for an anonymous class';
+			}
+		});
+		$this->assertInstanceOf(Comment::class, $n);
+		$this->assertSame('<!--Hello World for an anonymous class-->', $n->toString());
+	}
+
+	public function testComment4() {
+		$n = new Comment(new class {
+			public function __toString() {
+				return 'Hello World for an anonymous class';
+			}
+		});
+		$this->assertInstanceOf(Comment::class, $n);
+		$this->assertSame('<!--Hello World for an anonymous class-->', strval($n));
+	}
+
 	public function testText() {
 		$n = Html::text('hallo welt');
 		$this->assertInstanceOf(Text::class, $n);

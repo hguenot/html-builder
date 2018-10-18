@@ -18,6 +18,20 @@ class ElementTest extends TestCase {
 			'abc',
 			$el->text()
 		);
+
+		$el->text(new Text('def'));
+
+		$this->assertSame(
+			'def',
+			$el->text()
+		);
+
+		try {
+			$el->text(new class(){});
+			$this->fail('Must raise an InvalidArgumentException');
+		} catch (\InvalidArgumentException $ex) {
+		}
+
 	}
 
 	public function testTextReplace() {
@@ -71,6 +85,18 @@ class ElementTest extends TestCase {
 			->prepend((new Element('span'))->text('c'));
 
 		$this->assertSame('cab', $el->text());
+
+		$el->prepend('span', [
+			'class' => 'block'
+		]);
+
+		$this->assertSame('<p><span class="block"></span><span>c</span><span>a</span><span>b</span></p>', strval($el));
+
+		$p = new Element('p');
+		$el->prependTo($p);
+
+		$this->assertSame('<p><p><span class="block"></span><span>c</span><span>a</span><span>b</span></p></p>', strval($p));
+
 	}
 
 	public function testAppend() {
@@ -125,6 +151,30 @@ class ElementTest extends TestCase {
 		$this->assertNull($el->attr('style'));
 		$this->assertEquals($el->attr('style', 'display: none;'), $el);
 		$this->assertEquals($el->attr('style'), 'display: none;');
+
+		$this->assertEquals($el->attr(), ['class' => 'foo bar', 'style' => 'display: none;']);
+
+		$el->removeAttr('style');
+		$this->assertNull($el->attr('style'));
+
+		$this->assertEquals($el->attr(), ['class' => 'foo bar']);
+	}
+
+	public function testHtml() {
+		$el = new Element('p');
+
+		$el->html((new Element('span'))->text('abc'));
+		$this->assertSame('<p><span>abc</span></p>',$el->toString());
+		$this->assertSame('<span>abc</span>',$el->html());
+
+		$el->html('def');
+		$this->assertSame('<p>def</p>',$el->toString());
+
+		$el->html(new Text('ghi'));
+		$this->assertSame('<p>ghi</p>',$el->toString());
+
+		$el->html(new RawHtml('<i>jkl</i>'));
+		$this->assertSame('<p><i>jkl</i></p>',$el->toString());
 	}
 
 }

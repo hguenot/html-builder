@@ -1,14 +1,19 @@
 PHP HTML Builder
 ================
 
-[![Build Status](https://api.travis-ci.org/timostamm/html-builder.png)](https://travis-ci.org/timostamm/html-builder)
-
-
 A simple library to generate HTML fragments with a jquery-like interface. 
 
 This library does not parse HTML, and it does not provide element lookup via selectors or otherwise. It is focused on building simple HTML fragments, for example embed codes, while taking care of proper escaping and other simple syntax rules. Its purpose is to replace manual concatenation of strings.
 
+(Fork of https://github.com/timostamm/html-builder - PHP 7 support and releases)
 
+
+###Continuous integration
+
+[![Build Status](https://travis-ci.org/hguenot/html-builder.svg)](https://travis-ci.org/hguenot/html-builder) 
+[![Code coverage](https://img.shields.io/codecov/c/github/hguenot/html-builder.svg)](https://codecov.io/github/hguenot/html-builder) 
+[![GitHub version](https://img.shields.io/github/release/hguenot/html-builder.svg)](https://github.com/hguenot/html-builder/releases) 
+[![Packagist version](https://img.shields.io/packagist/v/hguenot/html-builder.svg)](https://packagist.org/packages/hguenot/html-builder)
 
 ### Examples
 

@@ -3,6 +3,7 @@
 namespace TS\Text\HtmlBuilder;
 
 
+use TS\Data\Tree\INode;
 use TS\Data\Tree\ProtectedAccess\ChildrenTrait;
 use TS\Data\Tree\ProtectedAccess\LookupTrait;
 
@@ -12,8 +13,7 @@ use TS\Data\Tree\ProtectedAccess\LookupTrait;
  * @author Timo Stamm <ts@timostamm.de>
  * @license AGPLv3.0 https://www.gnu.org/licenses/agpl-3.0.txt
  */
-abstract class Node
-{
+abstract class Node {
 	
 	use ChildrenTrait;
 	use LookupTrait;
@@ -32,6 +32,12 @@ abstract class Node
 	public function __toString()
 	{
 		return $this->toString();
+	}
+
+	protected function removeAllChildren() {
+		while ($this->getChildren()) {
+			$this->removeChildAt(0);
+		}
 	}
 
 }

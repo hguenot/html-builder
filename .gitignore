@@ -3,3 +3,8 @@ vendor/*
 composer.phar
 /vendor/
 .DS_Store
+.settings
+.project
+html-builder.iml
+html-builder.ipr
+html-builder.iws

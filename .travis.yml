@@ -1,9 +1,14 @@
 language: php
-
 php:
-  - 7.1
+- 7.1
+- nightly
 
-install:
-  - composer install
+script:
+- phpunit --coverage-clover=coverage.xml --log-junit=test-report.xml
 
-script: phpunit --coverage-text
+before_install:
+- composer install
+- pip install --user codecov
+
+after_success:
+- codecov

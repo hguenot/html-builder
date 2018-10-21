@@ -32,6 +32,13 @@ class ElementTest extends TestCase {
 		} catch (\InvalidArgumentException $ex) {
 		}
 
+		try {
+			$el->text('xyz', [], true);
+			$this->fail();
+		} catch (\InvalidArgumentException $ex) {
+
+		}
+
 	}
 
 	public function testTextReplace() {
@@ -143,6 +150,16 @@ class ElementTest extends TestCase {
 		$this->assertTrue($el->hasClass('baz'));
 		$this->assertFalse($el->hasClass('bar'));
 		$this->assertFalse($el->hasClass('foo'));
+
+		$el->toggleClass('foo');
+		$this->assertTrue($el->hasClass('foo'));
+		$el->toggleClass('foo');
+		$this->assertFalse($el->hasClass('foo'));
+
+		$el->removeClass('foo');
+		$el->removeClass('bar');
+		$el->removeClass('baz');
+		$this->assertNull($el->attr('class'));
 	}
 
 	public function testAttributes() {
@@ -158,6 +175,13 @@ class ElementTest extends TestCase {
 		$this->assertNull($el->attr('style'));
 
 		$this->assertEquals($el->attr(), ['class' => 'foo bar']);
+
+		try {
+			$el->attr('xyz', 'jkl', true);
+			$this->fail();
+		} catch (\InvalidArgumentException $ex) {
+
+		}
 	}
 
 	public function testHtml() {
@@ -175,6 +199,68 @@ class ElementTest extends TestCase {
 
 		$el->html(new RawHtml('<i>jkl</i>'));
 		$this->assertSame('<p><i>jkl</i></p>',$el->toString());
+
+		try {
+			$el->html(new class() {});
+			$this->fail();
+		} catch (\InvalidArgumentException $ex) {
+
+		}
+
+		try {
+			$el->html('xyz', [], true);
+			$this->fail();
+		} catch (\InvalidArgumentException $ex) {
+
+		}
+	}
+
+	public function testVoidTags() {
+		$el = new Element('br');
+		$this->assertEquals('<br/>', $el->toString());
+
+		$el = new Element('input', [
+			'type' => 'checkbox',
+			'checked' => true
+		]);
+		$this->assertEquals('<input type="checkbox" checked/>', $el->toString());
+	}
+
+	public function testTagName() {
+		$el = new Element('p');
+		$this->assertEquals('p', $el->getTagname());
+
+		$el->switchTagname('span');
+		$this->assertEquals('span', $el->getTagname());
+	}
+
+	public function testProps() {
+		$el = new Element('input', [
+			'type' => 'checkbox'
+		]);
+
+		$this->assertFalse($el->prop('checked'));
+
+		$el->prop('checked', true);
+		$this->assertTrue($el->prop('checked'));
+
+		$el->prop('checked', false);
+		$this->assertFalse($el->prop('checked'));
+
+		$el->attr('checked', 'checked');
+		$this->assertFalse($el->prop('checked'));
+
+		$el->attr('checked', true);
+		$this->assertTrue($el->prop('checked'));
+
+		$this->assertEquals(['checked'], $el->prop());
+
+		try {
+			$el->prop('checked', true, 'checked');
+			$this->fail();
+		} catch (\InvalidArgumentException $ex) {
+
+		}
 	}
 
 }

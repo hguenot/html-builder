@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "352e84837af16371451f89991004dd14",
+    "content-hash": "22ab5686c2c9a4204279030165207df0",
     "packages": [
         {
             "name": "hguenot/data-tree",
-            "version": "v1.0.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hguenot/data-tree.git",
-                "reference": "d88138a7b4893e83a9788a55b276fcfaf20976f8"
+                "reference": "003f7968432bb116b9e848180efda9e20f683bda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hguenot/data-tree/zipball/d88138a7b4893e83a9788a55b276fcfaf20976f8",
-                "reference": "d88138a7b4893e83a9788a55b276fcfaf20976f8",
+                "url": "https://api.github.com/repos/hguenot/data-tree/zipball/003f7968432bb116b9e848180efda9e20f683bda",
+                "reference": "003f7968432bb116b9e848180efda9e20f683bda",
                 "shasum": ""
             },
             "require": {
@@ -36,7 +36,7 @@
             "license": [
                 "AGPL-3.0"
             ],
-            "time": "2018-10-18T03:43:44+00:00"
+            "time": "2018-10-21T07:13:12+00:00"
         }
     ],
     "packages-dev": [

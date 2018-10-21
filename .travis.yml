@@ -4,7 +4,7 @@ php:
 - nightly
 
 script:
-- phpunit --coverage-clover=coverage.xml --log-junit=test-report.xml
+- composer test
 
 before_install:
 - composer install

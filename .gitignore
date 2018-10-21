@@ -8,5 +8,4 @@ composer.phar
 html-builder.iml
 html-builder.ipr
 html-builder.iws
-coverage.xml
-test-report.xml
+reports

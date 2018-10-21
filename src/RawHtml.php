@@ -10,22 +10,12 @@ class RawHtml extends Node {
 
 	public $html;
 
-	public function __construct(string $html) {
-		if (is_string($html)) {
-			$this->html = $html;
-		} else if (is_null($html)) {
-			$this->html = '';
-		} else {
-			throw new \LogicException();
-		}
+	public function __construct(string $html = '') {
+		$this->html = $html;
 	}
 
 	public function toString() {
 		return $this->html;
-	}
-
-	public function __toString() {
-		return $this->toString();
 	}
 
 }

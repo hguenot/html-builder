@@ -24,9 +24,5 @@ class Comment extends Node {
 		return sprintf('<!--%s-->', $this->childNodesToString());
 	}
 
-	public function __toString() {
-		return $this->toString();
-	}
-
 }
 

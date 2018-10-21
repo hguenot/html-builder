@@ -5,8 +5,8 @@
 	"license" : "AGPL-3.0",
 	"require" : {
 		"php" : ">=7.1",
-		"hguenot/data-tree" : ">=v1.0.0"
-	}, 
+		"hguenot/data-tree" : "v1.*"
+	},
 	"require-dev" : {
 		"phpunit/phpunit" : "~6.3"
 	},
@@ -21,7 +21,7 @@
 		}
 	},
 	"scripts" : {
-		"test" : "phpunit --coverage-clover=coverage.xml --log-junit=test-report.xml",
-		"codecov" : "codecov -t \"a6bf0f00-3286-48bc-bd9c-b4c434c6458b\" -f \"coverage.xml\""
+		"test" : "phpunit --coverage-clover=reports/coverage.xml --log-junit=reports/test-report.xml --coverage-html reports/coverage",
+		"codecov" : "codecov -t \"a6bf0f00-3286-48bc-bd9c-b4c434c6458b\" -f \"reports/coverage.xml\""
 	}
 }

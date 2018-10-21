@@ -2,13 +2,14 @@
 
 namespace TS\Text\HtmlBuilder;
 
+use TS\Data\Tree\Interfaces\Attributes;
 use TS\Data\Tree\ProtectedAccess\AttributesTrait;
 
 /**
  * @author  Timo Stamm <ts@timostamm.de>
  * @license AGPLv3.0 https://www.gnu.org/licenses/agpl-3.0.txt
  */
-class Element extends Node {
+class Element extends Node implements Attributes {
 
 	use AttributesTrait;
 
@@ -347,11 +348,42 @@ class Element extends Node {
 		return $this;
 	}
 
+	/**
+	 * @param string    $name
+	 * @param bool|null $isset
+	 *
+	 * @return $this|array|bool
+	 */
+	public function prop(?string $name = null, ?bool $isset = null) {
+		if (1 == func_num_args()) {
+			return $this->hasAttribute($name) && $this->getAttribute($name) === true;
+		} else if (2 == func_num_args()) {
+			if ($isset) {
+				$this->setAttribute($name, true);
+			} else {
+				$this->removeAttr($name);
+			}
+			return $this;
+		} else if (0 === func_num_args()) {
+			$props = [];
+
+			foreach ($this->getAttributes() as $attr => $value) {
+				if ($value === true) {
+					$props[] = $attr;
+				}
+			}
+
+			return $props;
+		} else {
+			throw new \InvalidArgumentException();
+		}
+	}
+
 	public function toString() {
 		if (count($this->getChildren()) === 0 && in_array($this->tagName, Html::$voidTags)) {
 			$attrs = $this->attributesToString();
 
-			return sprintf('<%s%s>', $this->tagName, $attrs === '' ? '' : ' ' . $attrs);
+			return sprintf('<%s%s/>', $this->tagName, $attrs === '' ? '' : ' ' . $attrs);
 		} else {
 			$content = $this->childNodesToString();
 			$attrs = $this->attributesToString();
@@ -374,10 +406,6 @@ class Element extends Node {
 		}
 
 		return implode(' ', $parts);
-	}
-
-	public function __toString() {
-		return $this->toString();
 	}
 
 }
